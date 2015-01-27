@@ -2,6 +2,7 @@ package snake;
 
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -31,6 +33,7 @@ public class Board extends JPanel implements ActionListener {
 	Menu menu;
 	Mouse mouse;
 	Death death;
+	boolean Linkclick=true;
 	int ST=15, T=ST, SN=10, N=SN,AppleN=5;
 	boolean Isinmenu=true;
 	boolean IsDeath=false;
@@ -112,7 +115,10 @@ public class Board extends JPanel implements ActionListener {
 				g2d.drawImage(loader.getButton(),menu.getRectButton().x,menu.getRectButton().y,null);
 			else
 				g2d.drawImage(loader.getButtonPressed(),menu.getRectButton().x,menu.getRectButton().y,null);
-			g2d.drawImage(loader.getLogo(),menu.getRectLogo().x,menu.getRectLogo().y,null);
+			if(!menu.getRectMouse().intersects(menu.getRectLogo()))
+				g2d.drawImage(loader.getLogo(),menu.getRectLogo().x,menu.getRectLogo().y,null);
+			else
+				g2d.drawImage(loader.getLogoPressed(),menu.getRectLogo().x,menu.getRectLogo().y,null);
 		}
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
@@ -155,7 +161,11 @@ public class Board extends JPanel implements ActionListener {
 		else{
 			menu.updateMouse(mouse.getX(), mouse.getY());
 			if(mouse.Click()){
-				System.out.println("mouse clicked.");
+				if(menu.getRectMouse().intersects(menu.getRectLogo())&&Linkclick){
+					openWebpage("http://homemadestudios.altervista.org/");
+					System.out.println("opened");
+					Linkclick=false;
+				}
 				if(menu.getRectMouse().intersects(menu.getRectButton())){
 					Isinmenu=false;				
 				}
@@ -194,5 +204,14 @@ public class Board extends JPanel implements ActionListener {
 		public void keyPressed(KeyEvent e) {
 			head.keyPressed(e);
 		}
+	}
+
+
+	public static void openWebpage(String urlString) {
+	    try {
+	        Desktop.getDesktop().browse(new URL(urlString).toURI());
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 }

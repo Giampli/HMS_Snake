@@ -16,6 +16,7 @@ public class ImgLoader {
 	BufferedImage bigImg;
 	BufferedImage deathRetryPressed;
 	BufferedImage logo;
+	BufferedImage logoPressed;
 	BufferedImage gameLogo;
 	BufferedImage credits;
 	BufferedImage buttonPressed;
@@ -39,6 +40,7 @@ public class ImgLoader {
 			buttonPressed=ImageIO.read(getClass().getResource("/img/pressed_button.png"));
 			gameLogo=ImageIO.read(getClass().getResource("/img/gameLogo.png"));
 			logo=ImageIO.read(getClass().getResource("/img/logo.png"));
+			logoPressed=ImageIO.read(getClass().getResource("/img/logoPressed.png"));
 			credits=ImageIO.read(getClass().getResource("/img/credits.png"));
 			background = ImageIO.read(getClass().getResource("/img/background.png"));
 			pause = ImageIO.read(getClass().getResource("/img/pauseoverlay.png"));
@@ -107,6 +109,9 @@ public class ImgLoader {
 	}
 	public BufferedImage getLogo() {
 		return logo;
+	}
+	public BufferedImage getLogoPressed() {
+		return logoPressed;
 	}
 	public BufferedImage getDeahRetry() {
 		return deathRetry;

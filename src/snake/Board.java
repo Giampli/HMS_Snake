@@ -63,7 +63,19 @@ public class Board extends JPanel implements ActionListener {
 		if(!Isinmenu){
 			if(!IsDeath){
 				g2d.drawImage(loader.getBackground(),0,0,null);
-				
+				g2d.drawImage(loader.getSnakeShad()[0],head.getX()+3,head.getY()-3 ,null);
+				for(int i=0; i<tail.size();i++){
+					g2d.drawImage(loader.getSnakeShad()[1],tail.get(i).getTailSq().x+3,tail.get(i).getTailSq().y-3,null);
+				}
+				for (int i=0; i<AppleN; i++){
+					g2d.drawImage(loader.getFruitsShadow()[apples.get(i).getRandFruit()],apples.get(i).getX()+4,apples.get(i).getY()-4,null);
+				}
+				for (int i=0; i<AppleN; i++){
+					g2d.drawImage(loader.getFruits()[apples.get(i).getRandFruit()],apples.get(i).getX(),apples.get(i).getY(),null);
+				}
+				for(int i=0; i<tail.size();i++){
+					g2d.drawImage(loader.getSnake()[4],tail.get(i).getTailSq().x,tail.get(i).getTailSq().y,null);
+				}			
 				if(head.getDx()==1||head.getDx()==0&&head.getDy()==0){
 					g2d.drawImage(loader.getSnake()[0],head.getX(),head.getY() ,null);
 				}
@@ -76,12 +88,6 @@ public class Board extends JPanel implements ActionListener {
 				if(head.getDy()==-1){
 					g2d.drawImage(loader.getSnake()[3],head.getX(),head.getY() ,null);
 				}
-				for (int i=0; i<AppleN; i++){
-					g2d.drawImage(loader.getFruits()[apples.get(i).getRandFruit()],apples.get(i).getX(),apples.get(i).getY(),null);
-				}
-				for(int i=0; i<tail.size();i++)
-					g2d.drawImage(loader.getSnake()[4],tail.get(i).getTailSq().x,tail.get(i).getTailSq().y,null);
-				
 			    g2d.drawString("Score: "+tail.size(), 10, 15);
 			    
 			    if(head.getPause()){
@@ -92,8 +98,11 @@ public class Board extends JPanel implements ActionListener {
 			else {
 				g2d.setColor(Color.WHITE);
 				g2d.setFont(new Font("Purisa", Font.PLAIN, 30));
-			    g2d.drawString("Your score was: "+tail.size(), 15, 90);
-				g2d.drawImage(loader.getDeahRetry(),death.getRectRetry().x,death.getRectRetry().y,null);
+			    g2d.drawString("Your score was: "+tail.size(), 25, 90);
+				if(!death.getRectMouse().intersects(death.getRectRetry()))
+					g2d.drawImage(loader.getDeahRetry(),death.getRectRetry().x,death.getRectRetry().y,null);
+				else
+					g2d.drawImage(loader.getDeahRetryPressed(),death.getRectRetry().x,death.getRectRetry().y,null);
 			}
 		}
 		else{
@@ -126,7 +135,6 @@ public class Board extends JPanel implements ActionListener {
 							apples.remove(i);
 							apples.add(new Eat(scrHeight,scrWidth));
 							tail.add(tail.size(), new Tail(head.getX(),head.getY(),head.getDx(),head.getDy(),tail.size()));
-							System.out.println(tail.size());
 						}
 					if (!head.getHead().intersects(gameplane))
 						IsDeath=true;
@@ -179,7 +187,6 @@ public class Board extends JPanel implements ActionListener {
 		timer.stop();
 		timer = new Timer (T , this);
 		timer.start();
-		System.out.println("Updated Timer. "+ T);
 	}
 
 	private class TAdapter extends KeyAdapter {

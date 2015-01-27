@@ -9,8 +9,8 @@ public class Death {
 	Rectangle mouse;
 
 	Death(){
-	retry=new Point (86,165);
-	rectRetry= new Rectangle(retry.x,retry.y,128,64);
+	retry=new Point (25,145);
+	rectRetry= new Rectangle(retry.x,retry.y,248,64);
 	mouse=new Rectangle (0,0,3,3);
 	}
 	

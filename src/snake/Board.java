@@ -163,7 +163,6 @@ public class Board extends JPanel implements ActionListener {
 			if(mouse.Click()){
 				if(menu.getRectMouse().intersects(menu.getRectLogo())&&Linkclick){
 					openWebpage("http://homemadestudios.altervista.org/");
-					System.out.println("opened");
 					Linkclick=false;
 				}
 				if(menu.getRectMouse().intersects(menu.getRectButton())){
